@@ -1,0 +1,104 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lambda-rfi-mitigation"
+dynamic = ["version"]
+description = 'Eigen-subspace RFI mitigation with directional protection for the LAMBDA array.'
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+keywords = [
+  "radio astronomy",
+  "radio frequency interference",
+  "RFI mitigation",
+  "interferometry",
+  "eigen-subspace nulling",
+  "LAMBDA",
+]
+authors = [
+  { name = "J. Smallwood", email = "jsmallwood@swin.edu.au" },
+  { name = "Jaiden Cook", email = "jaiden.cook@csiro.au" }
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+    # Pinned to the versions that produced the figures in paper/ (Python 3.13.1).
+    "numpy==2.3.5",
+    "scipy==1.18.0",
+    "astropy==8.0.1",
+    "healpy==1.20.0",
+    "h5py==3.16.0",
+    "matplotlib==3.11.1",
+    "pandas==3.0.5",
+    "sgp4==2.27",
+    "toml==0.10.2",
+    "loguru==0.7.3",
+    "jupyterlab==4.6.3",
+]
+
+[project.urls]
+Documentation = "https://github.com/jdgsmallwood/lambda_rfi_mitigation#readme"
+Issues = "https://github.com/jdgsmallwood/lambda_rfi_mitigation/issues"
+Source = "https://github.com/jdgsmallwood/lambda_rfi_mitigation"
+
+[tool.hatch.version]
+path = "src/lambda_rfi_mitigation/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+  "pytest",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/lambda_rfi_mitigation tests}"
+
+[tool.mypy]
+# Third-party packages that ship no type stubs / py.typed marker. Silence the
+# "missing library stubs" noise so real type errors stay visible.
+[[tool.mypy.overrides]]
+module = [
+  "astropy.*",
+  "h5py",
+  "sgp4.*",
+  "healpy",
+]
+ignore_missing_imports = true
+
+[tool.hatch.envs.default]
+python = "3.13"
+
+[tool.coverage.run]
+source_pkgs = ["lambda_rfi_mitigation","tests"]
+branch = true
+parallel = true
+omit = [
+  "src/lambda_rfi_mitigation/__about__.py",
+]
+
+[tool.coverage.paths]
+lambda_rfi_mitigation = ["src/lambda_rfi_mitigation", "*/src/lambda_rfi_mitigation"]
+tests = ["tests", "*/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+
+[tool.hatch.build.targets.wheel]
+packages = ['src/lambda_rfi_mitigation']
+
+[tool.hatch.package-data]
+"lambda_rfi_mitigation.data"= ["*.toml","*.json","*.fits","aeps/*.npz"]
+"lambda_rfi_mitigation.config"= ["*.toml",".txt"]

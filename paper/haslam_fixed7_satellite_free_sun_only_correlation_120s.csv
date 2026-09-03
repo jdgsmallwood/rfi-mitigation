@@ -1,0 +1,2 @@
+start_index,stop_index_exclusive,duration_s,satellite_altitude_min_deg,satellite_altitude_max_deg,target_clean_correlation,target_sun_response_to_noise,clean_sun_response_to_noise
+1000,7782,120.00553464889526,-13.506568812465519,-8.71319894047925,0.7963233730982697,1.0640787783864685,1.0440851475151776

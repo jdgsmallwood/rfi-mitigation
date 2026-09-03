@@ -1,0 +1,34 @@
+{
+  "title": "lambda-rfi-mitigation: eigen-subspace RFI mitigation with directional protection for the LAMBDA array",
+  "description": "<p>Offline RFI-mitigation and imaging code for the LAMBDA 36-element radio interferometer, together with <code>paper/paper-figures.ipynb</code>, the notebook that regenerates every figure in Smallwood et al., <em>Protecting astronomical sources during adaptive spatial filtering for radio frequency interference mitigation with the LAMBDA dipole array</em>.</p><p>Short-term visibility covariances are peeled of a scaled Haslam sky prior, whitened, projected free of a fixed-rank interference subspace while protecting chosen directions (the Sun), restored, and imaged by direct DFT. A clean, RFI-free channel observed at the same time provides the reference against which mitigation is scored.</p><p>The two ~10 GiB raw visibility captures the notebook consumes are archived as a separate data record; see the README for how to point <code>$LAMBDA_DATA_PATH</code> at them.</p>",
+  "upload_type": "software",
+  "license": "mit",
+  "access_right": "open",
+  "creators": [
+    {
+      "name": "Smallwood, J.",
+      "orcid": "0009-0006-4111-7610"
+    },
+    {
+      "name": "Cook, Jaiden",
+      "orcid": "0000-0001-8001-0791"
+    }
+  ],
+  "keywords": [
+    "radio astronomy",
+    "radio frequency interference",
+    "RFI mitigation",
+    "interferometry",
+    "eigen-subspace nulling",
+    "spatial filtering",
+    "LAMBDA"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.22255363",
+      "relation": "isSupplementedBy",
+      "resource_type": "dataset",
+      "scheme": "doi"
+    }
+  ]
+}

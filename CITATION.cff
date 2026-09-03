@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "lambda-rfi-mitigation: eigen-subspace RFI mitigation with directional protection for the LAMBDA array"
+abstract: >-
+  Offline RFI-mitigation and imaging code for the LAMBDA 36-element radio
+  interferometer, together with the notebook that regenerates every figure in
+  the paper. Short-term visibility covariances are peeled of a scaled Haslam sky
+  prior, whitened, projected free of a fixed-rank interference subspace while
+  protecting chosen directions (the Sun), and imaged by direct DFT.
+type: software
+version: 1.0.0
+# TODO(before deposit): set to the actual release date.
+date-released: 2026-09-02
+license: MIT
+repository-code: "https://github.com/jdgsmallwood/lambda_rfi_mitigation"
+keywords:
+  - radio astronomy
+  - radio frequency interference
+  - RFI mitigation
+  - interferometry
+  - eigen-subspace nulling
+  - LAMBDA
+authors:
+  - family-names: Smallwood
+    given-names: J.
+    alias: Jay
+    email: jsmallwood@swin.edu.au
+    orcid: "https://orcid.org/0009-0006-4111-7610"
+  - family-names: Cook
+    given-names: Jaiden
+    email: jaiden.cook@csiro.au
+    orcid: "https://orcid.org/0000-0001-8001-0791"
+references:
+  # The paper this software supports. No DOI yet; add it once published.
+  - type: article
+    title: "Protecting astronomical sources during adaptive spatial filtering for radio frequency interference mitigation with the LAMBDA dipole array"
+    status: in-preparation
+    authors:
+      - family-names: Smallwood
+        given-names: J.
+      - family-names: Cook
+        given-names: Jaiden
+  # The raw visibility captures, deposited as their own Zenodo record.
+  - type: data
+    title: "LAMBDA36 Orbcomm visibility captures, 2026-06-11"
+    doi: "10.5281/zenodo.22255363"
+    authors:
+      - family-names: Smallwood
+        given-names: J.

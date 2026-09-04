@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "lambda-rfi-mitigation: eigen-subspace RFI mitigation with directional protection for the LAMBDA array"
+title: "spatial-filtering-rfi-mitigation: eigen-subspace RFI mitigation with directional protection for the LAMBDA array"
 abstract: >-
   Offline RFI-mitigation and imaging code for the LAMBDA 36-element radio
   interferometer, together with the notebook that regenerates every figure in
@@ -12,7 +12,7 @@ version: 1.0.0
 # TODO(before deposit): set to the actual release date.
 date-released: 2026-09-02
 license: MIT
-repository-code: "https://github.com/jdgsmallwood/lambda_rfi_mitigation"
+repository-code: "https://github.com/jdgsmallwood/rfi-mitigation"
 keywords:
   - radio astronomy
   - radio frequency interference

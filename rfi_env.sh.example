@@ -1,0 +1,7 @@
+RFI_ROOT="${HOME}"
+RFI_DATA_PATH="${RFI_ROOT}/rfi-data/data/"
+RFI_OUTPUT_PATH="${RFI_ROOT}/rfi-data/output/"
+
+export RFI_ROOT
+export RFI_DATA_PATH
+export RFI_OUTPUT_PATH

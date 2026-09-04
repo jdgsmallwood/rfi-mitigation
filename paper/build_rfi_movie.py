@@ -17,7 +17,7 @@ import numpy as np
 from matplotlib.animation import FFMpegWriter
 from sgp4.api import Satrec
 
-from lambda_rfi_mitigation.protected_pipeline import (
+from spatial_filtering_rfi_mitigation.protected_pipeline import (
     ProtectedRunConfig, dirty_image, prepare_observation, satellite_lm, sun_lm_track,
 )
 

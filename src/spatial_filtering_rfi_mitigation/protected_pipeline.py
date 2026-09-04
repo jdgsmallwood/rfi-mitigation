@@ -25,9 +25,9 @@ from astropy.coordinates import (
 from astropy.time import Time
 from loguru import logger
 
-from lambda_rfi_mitigation import utils, vistools
-from lambda_rfi_mitigation.constants import NARRIBRI, c
-from lambda_rfi_mitigation.modelling import calc_lmn
+from spatial_filtering_rfi_mitigation import utils, vistools
+from spatial_filtering_rfi_mitigation.constants import NARRIBRI, c
+from spatial_filtering_rfi_mitigation.modelling import calc_lmn
 
 
 DEFAULT_TLE = (

@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from loguru import logger
 from warnings import warn
 
-interferometerPath = os.environ.get("LAMBDA_OUTPUT_PATH",os.getcwd()+"/")
+interferometerPath = os.environ.get("RFI_OUTPUT_PATH",os.getcwd()+"/")
 
 class RadioArray:
     

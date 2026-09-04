@@ -1,7 +1,7 @@
 import numpy as np
 from astropy.time import Time
 
-from lambda_rfi_mitigation.low_rank_sky_experiment import (
+from spatial_filtering_rfi_mitigation.low_rank_sky_experiment import (
     _fit_sky_and_sun,
     beam_weighted_haslam_components,
     beam_weighted_haslam_covariance,

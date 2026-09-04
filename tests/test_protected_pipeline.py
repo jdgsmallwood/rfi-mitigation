@@ -1,7 +1,7 @@
 import numpy as np
 from astropy.time import Time
 
-from lambda_rfi_mitigation.protected_pipeline import (
+from spatial_filtering_rfi_mitigation.protected_pipeline import (
     dirty_image,
     galactic_plane_lm,
     steering_vectors,

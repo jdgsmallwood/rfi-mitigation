@@ -206,7 +206,7 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-src/lambda_rfi_mitigation/config/default_config.toml
+src/spatial_filtering_rfi_mitigation/config/default_config.toml
 .DS_Store
 notebooks/LAMBDA-data-III.ipynb
 notebooks/LAMBDA-data-IV.ipynb
@@ -215,7 +215,7 @@ notebooks/LAMBDA-data-VI.ipynb
 notebooks/LAMBDA-data-VII.ipynb
 notebooks/LAMBDA-data-VIII.ipynb
 notebooks/LAMBDA-data-IX.ipynb
-lambda_env.sh
+rfi_env.sh
 notebooks/LAMBDA-data-V.ipynb
 notebooks/LAMBDA-data-V.ipynb
 notebooks/data-visualisation.ipynb
@@ -225,14 +225,14 @@ notebooks/LAMBDA-swap-antennas.ipynb
 notebooks/LAMBDA-data-V.ipynb
 notebooks/LAMBDA-data-uvfits.ipynb
 notebooks/binary-blobs.ipynb
-src/lambda_rfi_mitigation/LAMBDA-Calibration-Test.ipynb
+src/spatial_filtering_rfi_mitigation/LAMBDA-Calibration-Test.ipynb
 *.hdf5
 *.png
 notebooks/binary-blobs-II.ipynb
 *.pcap
 *.pcapng
 *.mp4
-src/lambda_rfi_mitigation/LAMBDA-Gain-bandpass-test.ipynb
+src/spatial_filtering_rfi_mitigation/LAMBDA-Gain-bandpass-test.ipynb
 notebooks/LAMBDA-Gain-bandpass-test.ipynb
 .gitignore
 notebooks/auto-cor-spectra.ipynb
@@ -267,16 +267,16 @@ notebooks/LAMBDA-Delay-Investigation.ipynb
 jai-paper/
 notebooks/
 scripts/
-lambda_env.sh
+rfi_env.sh
 CLAUDE.md
 
 # Archive metadata
 !.zenodo.json
 
 # Packaged reference data
-!src/lambda_rfi_mitigation/data/*.json
-!src/lambda_rfi_mitigation/data/*.fits
-!src/lambda_rfi_mitigation/data/aeps/*.npz
+!src/spatial_filtering_rfi_mitigation/data/*.json
+!src/spatial_filtering_rfi_mitigation/data/*.fits
+!src/spatial_filtering_rfi_mitigation/data/aeps/*.npz
 
 # Paper figures and tables produced by paper/paper-figures.ipynb
 !paper/lambda36-array-layout.*

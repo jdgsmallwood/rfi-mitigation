@@ -1,5 +1,5 @@
 import numpy as np
-from lambda_rfi_mitigation.constants import c
+from spatial_filtering_rfi_mitigation.constants import c
 from astropy.coordinates import SkyCoord
 
 

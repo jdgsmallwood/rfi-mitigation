@@ -1,4 +1,4 @@
-# lambda-rfi-mitigation
+# spatial-filtering-rfi-mitigation
 
 Code and figures for
 
@@ -48,7 +48,7 @@ transitive set.
 Sanity check:
 
 ```
-python -c "import lambda_rfi_mitigation; print(lambda_rfi_mitigation.__file__)"
+python -c "import spatial_filtering_rfi_mitigation; print(spatial_filtering_rfi_mitigation.__file__)"
 pytest
 ```
 
@@ -65,10 +65,10 @@ in this repository** — they are archived as a separate Zenodo data record:
 | `visibilities_20260611-1511_172_179_ALVEO0_ALVEO1_ALVEO2_ALVEO3.hdf5` | target capture |
 | `visibilities_20260611-1349_172_179_ALVEO0_ALVEO1_ALVEO2_ALVEO3.hdf5` | earlier Sun capture, used to solve the gains |
 
-Point `$LAMBDA_DATA_PATH` at the directory holding them (copy
-`lambda_env.sh.example` to `lambda_env.sh` and edit, then `source lambda_env.sh`),
+Point `$RFI_DATA_PATH` at the directory holding them (copy
+`rfi_env.sh.example` to `rfi_env.sh` and edit, then `source rfi_env.sh`),
 or place the two files — or symlinks to them — at the repository root. The
-notebook searches `$LAMBDA_DATA_PATH`, then the repository root, then the
+notebook searches `$RFI_DATA_PATH`, then the repository root, then the
 working directory, and names the DOI if it finds neither.
 
 ### 3. Run the notebook
@@ -100,7 +100,7 @@ never RFI-free in time. Per block and channel it fits non-negative sky and Sun
 amplitudes to the upper-triangular cross-visibilities (autocorrelations
 excluded), real and imaginary parts stacked, with a `soft_l1` loss scaled by the
 MAD of an initial bounded least-squares residual
-(`lambda_rfi_mitigation.low_rank_sky_experiment._fit_sky_and_sun`). Blocks are
+(`spatial_filtering_rfi_mitigation.low_rank_sky_experiment._fit_sky_and_sun`). Blocks are
 combined by median with a MAD-derived spread:
 
 | | |
@@ -138,7 +138,7 @@ data.
 
 | Path | Contents |
 |---|---|
-| `src/lambda_rfi_mitigation/` | the package (see below) |
+| `src/spatial_filtering_rfi_mitigation/` | the package (see below) |
 | `paper/` | the paper notebook, `build_rfi_movie.py`, and the figures/tables it produces |
 | `tests/` | pytest suite, mirroring the module names |
 

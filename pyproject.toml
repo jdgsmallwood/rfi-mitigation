@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "lambda-rfi-mitigation"
+name = "spatial-filtering-rfi-mitigation"
 dynamic = ["version"]
-description = 'Eigen-subspace RFI mitigation with directional protection for the LAMBDA array.'
+description = 'Eigen-subspace RFI mitigation with directional protection for radio interferometer visibilities.'
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
@@ -46,12 +46,12 @@ dependencies = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/jdgsmallwood/lambda_rfi_mitigation#readme"
-Issues = "https://github.com/jdgsmallwood/lambda_rfi_mitigation/issues"
-Source = "https://github.com/jdgsmallwood/lambda_rfi_mitigation"
+Documentation = "https://github.com/jdgsmallwood/rfi-mitigation#readme"
+Issues = "https://github.com/jdgsmallwood/rfi-mitigation/issues"
+Source = "https://github.com/jdgsmallwood/rfi-mitigation"
 
 [tool.hatch.version]
-path = "src/lambda_rfi_mitigation/__about__.py"
+path = "src/spatial_filtering_rfi_mitigation/__about__.py"
 
 [tool.hatch.envs.types]
 extra-dependencies = [
@@ -59,7 +59,7 @@ extra-dependencies = [
   "pytest",
 ]
 [tool.hatch.envs.types.scripts]
-check = "mypy --install-types --non-interactive {args:src/lambda_rfi_mitigation tests}"
+check = "mypy --install-types --non-interactive {args:src/spatial_filtering_rfi_mitigation tests}"
 
 [tool.mypy]
 # Third-party packages that ship no type stubs / py.typed marker. Silence the
@@ -77,15 +77,15 @@ ignore_missing_imports = true
 python = "3.13"
 
 [tool.coverage.run]
-source_pkgs = ["lambda_rfi_mitigation","tests"]
+source_pkgs = ["spatial_filtering_rfi_mitigation","tests"]
 branch = true
 parallel = true
 omit = [
-  "src/lambda_rfi_mitigation/__about__.py",
+  "src/spatial_filtering_rfi_mitigation/__about__.py",
 ]
 
 [tool.coverage.paths]
-lambda_rfi_mitigation = ["src/lambda_rfi_mitigation", "*/src/lambda_rfi_mitigation"]
+spatial_filtering_rfi_mitigation = ["src/spatial_filtering_rfi_mitigation", "*/src/spatial_filtering_rfi_mitigation"]
 tests = ["tests", "*/tests"]
 
 [tool.coverage.report]
@@ -97,8 +97,8 @@ exclude_lines = [
 
 
 [tool.hatch.build.targets.wheel]
-packages = ['src/lambda_rfi_mitigation']
+packages = ['src/spatial_filtering_rfi_mitigation']
 
 [tool.hatch.package-data]
-"lambda_rfi_mitigation.data"= ["*.toml","*.json","*.fits","aeps/*.npz"]
-"lambda_rfi_mitigation.config"= ["*.toml",".txt"]
+"spatial_filtering_rfi_mitigation.data"= ["*.toml","*.json","*.fits","aeps/*.npz"]
+"spatial_filtering_rfi_mitigation.config"= ["*.toml",".txt"]

@@ -1,6 +1,6 @@
 import numpy as np
 
-from lambda_rfi_mitigation.vistools import DFT_image
+from spatial_filtering_rfi_mitigation.vistools import DFT_image
 
 
 def _DFT_image_reference(covMatrix, Naxis, antLoc, freq):

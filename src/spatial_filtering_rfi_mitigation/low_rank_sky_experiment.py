@@ -13,8 +13,8 @@ from astropy.time import Time
 from scipy.interpolate import RegularGridInterpolator
 from scipy.optimize import least_squares, lsq_linear
 
-from lambda_rfi_mitigation.constants import NARRIBRI
-from lambda_rfi_mitigation.protected_pipeline import steering_vectors
+from spatial_filtering_rfi_mitigation.constants import NARRIBRI
+from spatial_filtering_rfi_mitigation.protected_pipeline import steering_vectors
 
 
 HASLAM_SPECTRAL_INDEX = -2.55
@@ -24,7 +24,7 @@ HASLAM_NSIDE = 32
 @lru_cache(maxsize=None)
 def _haslam_pixels(nside: int):
     """Return a degraded Galactic Haslam map and its fixed pixel coordinates."""
-    data_root = resources.files("lambda_rfi_mitigation.data")
+    data_root = resources.files("spatial_filtering_rfi_mitigation.data")
     map_path = data_root.joinpath("haslam408_ds_Remazeilles2014.fits")
     temperature = hp.read_map(str(map_path), dtype=np.float64)
     if hp.get_nside(temperature) != int(nside):
@@ -44,7 +44,7 @@ def _haslam_pixels(nside: int):
 @lru_cache(maxsize=None)
 def _aep_interpolator(channel_number: int):
     """Load the pseudo-Stokes-I element power pattern for one hardware channel."""
-    data_root = resources.files("lambda_rfi_mitigation.data")
+    data_root = resources.files("spatial_filtering_rfi_mitigation.data")
     path = data_root.joinpath("aeps", f"aeps_{int(channel_number)}.npz")
     if not path.exists():
         raise FileNotFoundError(f"missing antenna element pattern: {path}")

@@ -2,7 +2,7 @@ import numpy as np
 import h5py as h5
 import json
 import importlib.resources as resources
-from lambda_rfi_mitigation.constants import NARRIBRI, CHANWIDTH
+from spatial_filtering_rfi_mitigation.constants import NARRIBRI, CHANWIDTH
 from astropy.time import Time
 import astropy.units as u
 from loguru import logger
@@ -10,7 +10,7 @@ from loguru import logger
 import math
 
 
-antennaConfigPath = resources.files("lambda_rfi_mitigation.data")
+antennaConfigPath = resources.files("spatial_filtering_rfi_mitigation.data")
 # Antenna mapping dictionary.
 mappingFile = "LAMBDA36-antenna-mappings.json"
 with antennaConfigPath.joinpath(mappingFile).open("r") as f:
@@ -269,8 +269,8 @@ def make_telescope_model(antIDs, telescope="LAMBDA36", verbose=False):
     InterferometerModel
         The created interferometer model.
     """
-    from lambda_rfi_mitigation.constants import NARRIBRI
-    from lambda_rfi_mitigation.interferometers import make_radio_array
+    from spatial_filtering_rfi_mitigation.constants import NARRIBRI
+    from spatial_filtering_rfi_mitigation.interferometers import make_radio_array
 
     # mappingFile = "LAMBDA36-antenna-mappings.json"
     mappingFile = "LAMBDA36-antenna-mappings-reordered.json"

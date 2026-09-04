@@ -39,11 +39,11 @@ from pathlib import Path
 
 import numpy as np
 
-from lambda_rfi_mitigation.low_rank_sky_experiment import (
+from spatial_filtering_rfi_mitigation.low_rank_sky_experiment import (
     _fit_sky_and_sun,
     beam_weighted_haslam_covariance,
 )
-from lambda_rfi_mitigation.protected_pipeline import (
+from spatial_filtering_rfi_mitigation.protected_pipeline import (
     ProtectedRunConfig,
     prepare_observation,
     steering_vectors,
@@ -69,7 +69,7 @@ PUBLISHED_SCALE = 42.84043253358354
 
 def find_data_root():
     """Locate the directory holding the two captures. Mirrors the notebook."""
-    search_roots = [Path(os.environ[name]) for name in ("LAMBDA_DATA_PATH",)
+    search_roots = [Path(os.environ[name]) for name in ("RFI_DATA_PATH",)
                     if os.environ.get(name)]
     search_roots += [Path(".."), Path(".")]
     for root in search_roots:
@@ -78,7 +78,7 @@ def find_data_root():
     raise FileNotFoundError(
         "Could not locate the visibility captures\n"
         f"  {TARGET_NAME}\n  {GAIN_NAME}\n"
-        "Set $LAMBDA_DATA_PATH to the directory containing them, or place them "
+        "Set $RFI_DATA_PATH to the directory containing them, or place them "
         f"at the repository root. They are archived at {DATA_DOI}\n"
         "Searched: " + ", ".join(str(root.resolve()) for root in search_roots)
     )
@@ -173,7 +173,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument(
         "--data-root", type=Path, default=None,
-        help="Directory holding the two captures (default: $LAMBDA_DATA_PATH, "
+        help="Directory holding the two captures (default: $RFI_DATA_PATH, "
              "then the repository root, then the working directory).",
     )
     arguments = parser.parse_args()

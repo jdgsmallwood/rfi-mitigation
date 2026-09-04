@@ -1,6 +1,6 @@
 import numpy as np
 
-from lambda_rfi_mitigation.haslam_protection import (
+from spatial_filtering_rfi_mitigation.haslam_protection import (
     fixed_rank_subspace_null_batch,
     interpolate_covariances,
     psd_safe_subtract,

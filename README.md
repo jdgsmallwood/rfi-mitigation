@@ -8,8 +8,7 @@ Code and figures for
 
 using data from **LAMBDA**, a 36-element dipole array at Narrabri.
 
-<!-- TODO(before deposit): replace with the minted software DOI badge. -->
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22294890.svg)](https://doi.org/10.5281/zenodo.22294890)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://spdx.org/licenses/MIT.html)
 
 ## What this does

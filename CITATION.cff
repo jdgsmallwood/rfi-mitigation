@@ -9,9 +9,9 @@ abstract: >-
   protecting chosen directions (the Sun), and imaged by direct DFT.
 type: software
 version: 1.0.0
-# TODO(before deposit): set to the actual release date.
-date-released: 2026-09-02
+date-released: 2026-09-04
 license: MIT
+doi: "10.5281/zenodo.22294890"
 repository-code: "https://github.com/jdgsmallwood/rfi-mitigation"
 keywords:
   - radio astronomy

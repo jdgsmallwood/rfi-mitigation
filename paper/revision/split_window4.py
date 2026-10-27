@@ -97,12 +97,6 @@ record = dict(
     parts=rows,
 )
 (OUT / "window4_setting_split.json").write_text(json.dumps(record, indent=2))
-np.savez_compressed(
-    OUT / "window4_setting_images.npz",
-    split=im,
-    reference=reference,
-    fixed0=combined(0, 0),
-    fixed1=combined(1, 1),
-)
+
 print(json.dumps(record, indent=2), flush=True)
 print("PASS: recombined fixed-rank controls match original Window 4", flush=True)

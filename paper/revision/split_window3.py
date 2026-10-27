@@ -52,7 +52,5 @@ record = dict(
     first_half_rank=3, second_half_rank=1, combined_correlation=adaptive, checks=checks
 )
 (OUT / "window3_split_rank.json").write_text(json.dumps(record, indent=2))
-np.savez_compressed(
-    OUT / "window3_split_rank_images.npz", combined=combined, reference=ref
-)
+
 print(json.dumps(record), flush=True)

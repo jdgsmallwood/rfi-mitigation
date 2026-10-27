@@ -46,34 +46,32 @@ for w in [1, 0, 2, 3]:
     model = ns["physical_haslam_model"](ts)
     for pol in ["I", "XX", "YY"]:
         cm = clean[pol][mask].mean(axis=0)
-        rawref = ns["image_of"](cm, ns["clean_frequency"])
         shrunk, _ = ns["shrink_directional_eigenmodes_to_noise"](cm, cd)
         ref = ns["image_of"](shrunk, ns["clean_frequency"])
-        for mode in ["combined", "sun_only"]:
-            for rank in [0, 1, 2, 3] if mode == "combined" else [1, 2]:
-                result = ns["_null_and_restore_uncached"](
-                    target[pol],
-                    dirs,
-                    mask,
-                    rank,
-                    model=model if mode == "combined" else None,
-                    protect_sun=True,
-                    shrink_sun=mode == "combined",
-                    reduce="running",
-                )
-                im = ns["image_of"](result["covariance"])
-                row = {
-                    "window": w + 1,
-                    "pol": pol,
-                    "mode": mode,
-                    "rank": rank,
-                    "correlation_clean": ns["image_corr"](
-                        im, ref if mode == "combined" else rawref
-                    ),
-                    "integrations": int(result["valid"].sum()),
-                }
-                rows.append(row)
-                print(json.dumps(row), flush=True)
+        for rank in [0, 1, 2, 3]:
+            result = ns["_null_and_restore_uncached"](
+                target[pol],
+                dirs,
+                mask,
+                rank,
+                model=model,
+                protect_sun=True,
+                shrink_sun=True,
+                reduce="running",
+            )
+            im = ns["image_of"](result["covariance"])
+            row = {
+                "window": w + 1,
+                "pol": pol,
+                "mode": "combined",
+                "rank": rank,
+                "correlation_clean": ns["image_corr"](
+                    im, ref
+                ),
+                "integrations": int(result["valid"].sum()),
+            }
+            rows.append(row)
+            print(json.dumps(row), flush=True)
         if w == 1 and pol == "I":
             stored = pd.read_csv(
                 REPO / "paper/haslam_fixed7_window2_rank_sweep_120s.csv"

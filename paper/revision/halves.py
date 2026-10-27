@@ -59,8 +59,6 @@ for half, sl in [(1, slice(0, mid - start)), (2, slice(mid - start, stop - start
             weights[key] = weights.get(key, 0) + n
             im = ns["image_of"](cov)
             row[method + "_clean"] = ns["image_corr"](im, ref)
-            if rank in [0, 2, 3]:
-                images[f"half{half}_{method}_rank{rank}"] = im
         assert np.isfinite(list(row.values())).all()
         rows.append(row)
         print(json.dumps(row), flush=True)

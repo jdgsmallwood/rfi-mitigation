@@ -1,6 +1,7 @@
 import numpy as np
 import h5py as h5
 import json
+from types import SimpleNamespace
 import importlib.resources as resources
 from spatial_filtering_rfi_mitigation.constants import NARRIBRI, CHANWIDTH
 from astropy.time import Time
@@ -11,11 +12,6 @@ import math
 
 
 antennaConfigPath = resources.files("spatial_filtering_rfi_mitigation.data")
-# Antenna mapping dictionary.
-mappingFile = "LAMBDA36-antenna-mappings.json"
-with antennaConfigPath.joinpath(mappingFile).open("r") as f:
-    antennaDict = json.load(f)
-    antennaIDs = np.array(list(antennaDict.keys())).astype(int)
 
 
 def read_hdf5_gains(filePath, stokes=["XX"], verbose=False):
@@ -253,7 +249,7 @@ def split_baseline(baselineIDs):
 
 
 def make_telescope_model(antIDs, telescope="LAMBDA36", verbose=False):
-    """make_telescope_model _summary_
+    """Load the antenna geometry used by the paper and movie.
 
     Parameters
     ----------
@@ -266,13 +262,11 @@ def make_telescope_model(antIDs, telescope="LAMBDA36", verbose=False):
 
     Returns
     -------
-    InterferometerModel
-        The created interferometer model.
+    SimpleNamespace
+        East, north and height arrays in the requested antenna order.
     """
     from spatial_filtering_rfi_mitigation.constants import NARRIBRI
-    from spatial_filtering_rfi_mitigation.interferometers import make_radio_array
 
-    # mappingFile = "LAMBDA36-antenna-mappings.json"
     mappingFile = "LAMBDA36-antenna-mappings-reordered.json"
     with antennaConfigPath.joinpath(mappingFile).open("r") as f:
         antennaDict = json.load(f)
@@ -290,40 +284,6 @@ def make_telescope_model(antIDs, telescope="LAMBDA36", verbose=False):
     if verbose:
         logger.info(eastNorthHeight.T.shape)
 
-    InterferometerModel = make_radio_array(
-        eastNorthHeight=eastNorthHeight.T,
-        lat=NARRIBRI.lat.value,
-        lon=NARRIBRI.lon.value,
-        telescope=telescope,
+    return SimpleNamespace(
+        east=eastVec, north=northVec, height=eastNorthHeight[2], telescope=telescope,
     )
-
-    return InterferometerModel
-
-
-N_POL = 2
-N_ANTENNAS_PER_ALVEO = 10
-N_TIME_SAMPLES_PER_PACKET = 64
-
-# Binary layout of a single LAMBDA correlator UDP payload (2622 bytes):
-#   seq_no    <u8        (8 bytes)
-#   fpga_id   <u4        (4 bytes, unused)
-#   freq_chan <u2        (2 bytes)
-#   padding              (8 bytes, unused)
-#   scales    <u2[10][2] (40 bytes)  -- per (antenna, pol) gain scale factor
-#   samples   i1[64][10][2][I,Q] (2560 bytes) -- per (time, antenna, pol) I/Q
-_LAMBDA_PACKET_DTYPE = np.dtype(
-    [
-        ("seq_no", "<u8"),
-        ("fpga_id", "<u4"),
-        ("freq_chan", "<u2"),
-        ("_padding", "V8"),
-        ("scales", "<u2", (N_ANTENNAS_PER_ALVEO, N_POL)),
-        (
-            "samples",
-            "i1",
-            (N_TIME_SAMPLES_PER_PACKET, N_ANTENNAS_PER_ALVEO, N_POL, 2),
-        ),
-    ]
-)
-
-

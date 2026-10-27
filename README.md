@@ -125,10 +125,8 @@ data.
 |---|---|
 | `lambda36-array-layout.pdf` | LAMBDA36 antenna positions |
 | `haslam_fixed7_window2_rank_sweep_120s.csv` | correlation against the clean channel vs nulled rank, with the 50°-rotated-sky falsification control |
-| `haslam_fixed7_window2_sun_protection_isolation_120s.{png,csv}` | protection isolated: identical pipeline, protection the only difference |
+| `haslam_fixed7_window2_sun_protection_isolation_120s.{pdf,csv}` | protection isolated: identical pipeline, protection the only difference |
 | `haslam_fixed2_dirty_protection_120s_sun_shrunk.pdf` | the four 120 s windows at rank 2, all five image products |
-| `haslam_fixed7_peak_suppression_120s.csv` | rank-seven image-peak ratio only; not evidence for two-mode satellite suppression |
-| `haslam_fixed7_satellite_free_sun_only_correlation_120s.csv` | satellite-free control stretch, Sun only |
 | `channel_scan_correlation_flux_window2_120s.pdf` | per-channel correlation with the clean channel, and in-horizon flux |
 | `channel_{vs_clean_correlation,flux_stats}_window2_120s.csv` | the tables behind that figure |
 
@@ -156,10 +154,10 @@ Package modules, by concern:
 | `protected_pipeline.py` | run configuration and imaging: `ProtectedRunConfig`, `prepare_observation`, `steering_vectors`, `dirty_image`, and the Sun / satellite / Galactic-plane ephemerides |
 | `low_rank_sky_experiment.py` | beam-weighted Haslam sky-model covariances, and `_fit_sky_and_sun`, the fit behind the trained amplitude |
 | `utils.py` | HDF5 capture and gain reading, and the LAMBDA36 telescope model |
-| `interferometers.py` | `RadioArray`: array geometry and baselines |
 | `vistools.py`, `modelling.py`, `constants.py` | DFT imaging, direction cosines, site constants |
 
-This package contains only what the paper's figures need. The commissioning and
+This package contains the final paper analyses, their validation checks, and the
+supplementary movie generator. The commissioning and
 calibration tooling this code grew out of — the `run-diagnostics` / `run-convert`
 CLIs, Sun holography calibration, inter-ALVEO delay calibration, raw packet
 readers, UVFITS conversion, MIRIAD interop, SEFD estimation — lives in the

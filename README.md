@@ -20,10 +20,11 @@ integration, on the short-term covariance $R_k$:
 1. **Peel the known sky** — subtract a scaled Haslam-408 model covariance, the
    scale capped per integration so the residual stays positive semi-definite
    (`psd_safe_subtract`).
-2. **Whiten**, then **null the interference subspace** — project out the leading
-   `rank` eigenmodes, while **protecting** chosen directions (the Sun) so the
-   projector cannot eat them.
-3. **Restore** the peeled sky model and image by direct DFT of the visibilities.
+2. **Diagonally normalise**, then eigendecompose within the complement of the
+   protected Sun signature and null the leading `rank` modes there. This
+   normalisation does not whiten a general correlated-noise covariance.
+3. Undo the normalisation, **shrink the solar contribution**, restore the
+   subtracted sky model, and image by direct DFT of the visibilities.
 
 Channel 0, RFI-free at the same time on the same sky, is the reference:
 successful mitigation makes the mitigated channel 4 resemble channel 0.
@@ -79,7 +80,7 @@ jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=-1 \
 ```
 
 Every figure and table is written next to the notebook in `paper/`. Expensive
-per-window results are memoised under `paper/cache/` keyed by an md5 of their
+per-window results are memoised under `paper/cache/` keyed by a digest of the implementation and their
 inputs; set `USE_DISK_CACHE = False` in cell 1 to force full recomputation.
 
 ### The trained Haslam amplitude
@@ -123,15 +124,19 @@ data.
 | Output (`paper/`) | Content |
 |---|---|
 | `lambda36-array-layout.pdf` | LAMBDA36 antenna positions |
-| `haslam_fixed7_window2_rank_sweep_120s.{pdf,csv}` | correlation against the clean channel vs nulled rank, with the 50°-rotated-sky falsification control |
-| `haslam_fixed7_window2_rank_sweep_dirty_images_120s.png` | dirty images across the rank sweep |
-| `haslam_fixed7_window2_rank2_sun_protection_120s.png` | raw / post-null / restored, showing the Sun surviving the projector |
-| `haslam_fixed7_window2_sun_protection_isolation_120s.{png,csv}` | protection isolated: identical pipeline, protection the only difference |
+| `haslam_fixed7_window2_rank_sweep_120s.csv` | correlation against the clean channel vs nulled rank, with the 50°-rotated-sky falsification control |
+| `haslam_fixed7_window2_sun_protection_isolation_120s.{pdf,csv}` | protection isolated: identical pipeline, protection the only difference |
 | `haslam_fixed2_dirty_protection_120s_sun_shrunk.pdf` | the four 120 s windows at rank 2, all five image products |
-| `haslam_fixed7_peak_suppression_120s.{png,csv}` | peak suppression per window, in dB relative to raw |
-| `haslam_fixed7_satellite_free_sun_only_correlation_120s.csv` | satellite-free control stretch, Sun only |
 | `channel_scan_correlation_flux_window2_120s.pdf` | per-channel correlation with the clean channel, and in-horizon flux |
 | `channel_{vs_clean_correlation,flux_stats}_window2_120s.csv` | the tables behind that figure |
+
+## Revision analyses
+
+The additional four-window sweeps, satellite-track brightness, separate-hand
+checks and within-window rank changes are in [paper/revision](paper/revision/README.md).
+That directory includes portable scripts, numerical results and the four new
+scientific figures, plus the processing-chain diagram source. The main notebook
+and these scripts together reproduce the revised manuscript.
 
 ## Repository layout
 
@@ -149,10 +154,10 @@ Package modules, by concern:
 | `protected_pipeline.py` | run configuration and imaging: `ProtectedRunConfig`, `prepare_observation`, `steering_vectors`, `dirty_image`, and the Sun / satellite / Galactic-plane ephemerides |
 | `low_rank_sky_experiment.py` | beam-weighted Haslam sky-model covariances, and `_fit_sky_and_sun`, the fit behind the trained amplitude |
 | `utils.py` | HDF5 capture and gain reading, and the LAMBDA36 telescope model |
-| `interferometers.py` | `RadioArray`: array geometry and baselines |
 | `vistools.py`, `modelling.py`, `constants.py` | DFT imaging, direction cosines, site constants |
 
-This package contains only what the paper's figures need. The commissioning and
+This package contains the final paper analyses, their validation checks, and the
+supplementary movie generator. The commissioning and
 calibration tooling this code grew out of — the `run-diagnostics` / `run-convert`
 CLIs, Sun holography calibration, inter-ALVEO delay calibration, raw packet
 readers, UVFITS conversion, MIRIAD interop, SEFD estimation — lives in the

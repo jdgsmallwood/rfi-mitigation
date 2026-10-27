@@ -7,7 +7,7 @@ from common import OUT, REPO, load_namespace
 
 ns = load_namespace()
 rows = []
-for w in [1, 0, 2, 3]:
+for w in range(4):
     sel = slice(int(ns["starts"][w]), int(ns["stops"][w]))
     ts = ns["observation"].time[sel]
     target, valid = ns["load_window"](sel, ns["config"].target_channel)
@@ -53,7 +53,7 @@ for w in [1, 0, 2, 3]:
         print(json.dumps(row), flush=True)
     if w == 1:
         old = pd.read_csv(REPO / "paper/haslam_fixed7_window2_rank_sweep_120s.csv")
-        new = pd.DataFrame(rows)
+        new = pd.DataFrame(rows).query("window == 2")
         for col in [
             "protected_clean",
             "protected_template",

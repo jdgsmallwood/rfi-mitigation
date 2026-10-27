@@ -23,7 +23,7 @@ def valid(c):
     ).all(axis=1)
 
 
-for w in [1, 0, 2, 3]:
+for w in range(4):
     sel = slice(int(ns["starts"][w]), int(ns["stops"][w]))
     ts = obs.time[sel]
     target = {p: load(sel, 4, p) for p in ["XX", "YY"]}

@@ -10,7 +10,7 @@ obs = ns["observation"]
 rows = []
 summary = []
 ranks = pd.read_csv(OUT / "rank_sweeps.csv")
-for w in [1, 0, 2, 3]:
+for w in range(4):
     sel = slice(int(ns["starts"][w]), int(ns["stops"][w]))
     ts = obs.time[sel]
     images = []

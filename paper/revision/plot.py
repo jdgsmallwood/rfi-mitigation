@@ -1,6 +1,5 @@
 """Regenerate the four revised-paper figures from the archived result tables."""
 
-import json
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -60,12 +59,10 @@ for j, ax in enumerate(axs):
         ax.axvspan(below.seconds_from_window_start.iloc[0], 120, color=".92", zorder=-1)
 axs[0].set_ylabel("Raw track brightness\n(dB relative to Window 1 mean)")
 save(fig, "satellite_track_brightness_elevation")
-# Four-window roll-offs, with post-hoc best fixed ranks and the Window 3 split.
+# Four-window roll-offs: best fixed rank versus a separate rank per 60 s half.
 df = pd.read_csv(P / "channels.csv")
 ss = pd.read_csv(P / "summary.csv")
-adaptive = json.loads((P / "window3_split_rank.json").read_text())[
-    "combined_correlation"
-]
+adaptive = pd.read_csv(P / "adaptive_ranks.csv").set_index("window")
 freq = 137.5
 fig, axs = plt.subplots(
     2, 2, figsize=(7.1, 4.6), sharex=True, sharey=True, layout="constrained"
@@ -96,7 +93,7 @@ for w, ax in enumerate(axs.flat, 1):
         color="C0",
         s=22,
         zorder=4,
-        label="Best protected–clean",
+        label="Best protected–clean (fixed rank)",
     )
     ax.scatter(
         [freq],
@@ -107,23 +104,16 @@ for w, ax in enumerate(axs.flat, 1):
         zorder=4,
         label="Unprotected, rank 2",
     )
-    if w in [3, 4]:
-        value = (
-            adaptive
-            if w == 3
-            else json.loads((P / "window4_setting_split.json").read_text())[
-                "combined_correlation"
-            ]
-        )
-        label = (
-            "Protected: 3 modes → 1 mode"
-            if w == 3
-            else "Protected: 1 mode → 0 at setting"
-        )
-        ax.scatter([freq], [value], marker="*", color="C4", s=65, zorder=5, label=label)
-        ax.legend(handles=[ax.collections[-1]], loc="lower left", frameon=False)
+    result = adaptive.loc[w]
+    ax.scatter(
+        [freq], [result.combined_correlation], marker="*",
+        s=85, zorder=5, facecolors="none", edgecolors="C4", linewidths=1.2,
+        label="Best protected–clean (adaptive rank)",
+    )
     ax.set(
-        title=f"Window {w}: expected {st.expected:.3f}; best fixed rank {int(st.best_rank)}",
+        title=(f"Window {w}: expected {st.expected:.3f}\n"
+               f"Fixed rank {int(st.best_rank)}; adaptive "
+               f"{int(result.first_half_rank)} → {int(result.second_half_rank)}"),
         ylim=(-0.05, 1.1),
     )
     ax.grid(alpha=0.15)
@@ -131,10 +121,11 @@ for ax in axs[-1]:
     ax.set_xlabel("Frequency (MHz)")
 for ax in axs[:, 0]:
     ax.set_ylabel("Correlation with reference channel")
-axs[0, 0].legend(loc="lower left", frameon=False)
+fig.legend(*axs[0, 0].get_legend_handles_labels(),
+           loc="outside lower center", ncol=2, frameon=False, fontsize=7)
 save(fig, "channel_correlations_four_windows")
 # Protected-only half-window comparison.
-h = pd.read_csv(P / "correlations.csv")
+h = pd.read_csv(P / "correlations.csv").query("window == 3")
 fig, ax = plt.subplots(figsize=(3.4, 2.6), layout="constrained")
 for half, label, color in [(1, "First 60 s", "C0"), (2, "Second 60 s", "C1")]:
     q = h[h.half == half]

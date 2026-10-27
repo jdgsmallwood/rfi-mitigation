@@ -40,8 +40,14 @@ for w in range(4):
         )
         print("PASS: Window 2 reproduces existing channel scan", flush=True)
     other = d.channel != ns["config"].target_channel
-    fit = np.polyfit(
-        d.loc[other, "frequency_MHz"], d.loc[other, "correlation_with_clean"], 1
+    referencefreq = float(ns["clean_frequency"]) / 1e6
+    offsets = d.loc[other, "frequency_MHz"].to_numpy() - referencefreq
+    correlations = d.loc[other, "correlation_with_clean"].to_numpy()
+    slope = float(offsets @ (correlations - 1) / (offsets @ offsets))
+    fit = np.array([slope, 1 - slope * referencefreq])
+    np.testing.assert_allclose(np.polyval(fit, referencefreq), 1, atol=1e-12)
+    np.testing.assert_allclose(
+        offsets @ (correlations - (1 + slope * offsets)), 0, atol=1e-12
     )
     targetfreq = float(ns["target_frequency"]) / 1e6
     r = ranks.query("window==@w+1").set_index("fixed_rank")

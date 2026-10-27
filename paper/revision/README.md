@@ -58,9 +58,10 @@ Figure 5 is typeset directly in the manuscript.
   are plotted in dB; these are NOT measurements of isolated satellite power or
   mitigation suppression. The common reference is the Window 1 above-horizon
   mean. The ephemeris interpolation is checked against intermediate exact samples.
-* Frequency trends include every channel except the affected channel, including
-  the reference itself. Other channels can contain impulsive RFI; the fitted
-  expectations are empirical comparisons, not independently known true images.
+* Frequency trends are constrained to correlation 1 at the reference channel
+  (channel 0, 134.375 MHz), with a separate least-squares slope for each window
+  fitted to all channels except the affected channel. Other channels can contain
+  impulsive RFI; the fitted expectations are empirical comparisons, not independently known true images.
 * Best fixed and half-window ranks are selected retrospectively against the
   corresponding clean-channel image. The purple stars use two equal 60 s halves
   in every window, including Window 4; the split does not use the satellite

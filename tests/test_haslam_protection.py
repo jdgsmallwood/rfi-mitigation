@@ -39,9 +39,7 @@ def test_fixed_rank_subspace_null_is_hermitian_and_psd():
     cleaned, information = fixed_rank_subspace_null_batch(covariance, basis, 3)
     assert information["rank"] == 3
     assert information["protected_dimension"] == 1
-    np.testing.assert_allclose(
-        cleaned, np.swapaxes(cleaned.conj(), -1, -2), atol=1e-12
-    )
+    np.testing.assert_allclose(cleaned, np.swapaxes(cleaned.conj(), -1, -2), atol=1e-12)
     assert np.min(np.linalg.eigvalsh(cleaned)) >= -1e-10
 
 
@@ -66,3 +64,19 @@ def test_directional_shrink_reduces_response_and_stays_psd():
 # --- Non-negative integrated template fit -------------------------------------
 
 
+def test_protected_projector_preserves_original_direction_after_unscaling():
+    rng = np.random.default_rng(123)
+    samples = rng.normal(size=(2, 7, 20)) + 1j * rng.normal(size=(2, 7, 20))
+    samples *= np.arange(1, 8)[None, :, None]
+    covariance = samples @ samples.conj().swapaxes(-1, -2)
+    for k in (1, 2):
+        basis = rng.normal(size=(2, 7, k)) + 1j * rng.normal(size=(2, 7, k))
+        _, info = fixed_rank_subspace_null_batch(covariance, basis, 3)
+        p = info["operator"]
+        scale = np.sqrt(np.diagonal(covariance, axis1=-2, axis2=-1).real)
+        voltage_filter = scale[:, :, None] * p / scale[:, None, :]
+        np.testing.assert_allclose(voltage_filter @ basis, basis, atol=1e-12)
+        np.testing.assert_allclose(p @ p, p, atol=1e-12)
+        np.testing.assert_allclose(
+            np.linalg.eigvalsh(p), [[0, 0, 0, 1, 1, 1, 1]] * 2, atol=1e-12
+        )

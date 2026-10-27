@@ -7,7 +7,7 @@ name = "spatial-filtering-rfi-mitigation"
 dynamic = ["version"]
 description = 'Eigen-subspace RFI mitigation with directional protection for radio interferometer visibilities.'
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 license = "MIT"
 keywords = [
   "radio astronomy",
@@ -24,7 +24,6 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: Implementation :: CPython",
@@ -75,6 +74,7 @@ ignore_missing_imports = true
 
 [tool.hatch.envs.default]
 python = "3.13"
+extra-dependencies = ["pytest>=8"]
 
 [tool.coverage.run]
 source_pkgs = ["spatial_filtering_rfi_mitigation","tests"]

@@ -281,12 +281,16 @@ CLAUDE.md
 # Paper figures and tables produced by paper/paper-figures.ipynb
 !paper/lambda36-array-layout.*
 !paper/haslam_fixed2_dirty_protection_120s_sun_shrunk.*
-!paper/haslam_fixed7_peak_suppression_120s.*
+!paper/haslam_fixed7_peak_suppression_120s.csv
 !paper/haslam_fixed7_satellite_free_sun_only_correlation_120s.*
-!paper/haslam_fixed7_window2_rank_sweep_120s.*
-!paper/haslam_fixed7_window2_rank_sweep_dirty_images_120s.*
-!paper/haslam_fixed7_window2_rank2_sun_protection_120s.*
+!paper/haslam_fixed7_window2_rank_sweep_120s.csv
 !paper/haslam_fixed7_window2_sun_protection_isolation_120s.*
 !paper/channel_flux_stats_window2_120s.csv
 !paper/channel_vs_clean_correlation_window2_120s.csv
 !paper/channel_scan_correlation_flux_window2_120s.*
+
+# Revision reproduction sources and final numerical/figure products
+!paper/revision/*.tex
+!paper/revision/results/*.csv
+!paper/revision/results/*.json
+!paper/revision/results/*.pdf

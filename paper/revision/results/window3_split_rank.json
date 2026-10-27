@@ -1,0 +1,19 @@
+{
+  "first_half_rank": 3,
+  "second_half_rank": 1,
+  "combined_correlation": 0.6162937558850924,
+  "checks": [
+    {
+      "half": 1,
+      "rank": 3,
+      "integrations": 3391,
+      "correlation_with_half_reference": 0.5278265144230646
+    },
+    {
+      "half": 2,
+      "rank": 1,
+      "integrations": 3391,
+      "correlation_with_half_reference": 0.5703812533844423
+    }
+  ]
+}

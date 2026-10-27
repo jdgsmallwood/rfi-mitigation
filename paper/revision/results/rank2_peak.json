@@ -1,0 +1,38 @@
+[
+  {
+    "window": 1,
+    "rank": 2,
+    "raw_peak": 50607428.12399116,
+    "mitigated_peak": 391343.2733585432,
+    "after_minus_before_db": -21.11656393660516,
+    "reduction_db": 21.11656393660516,
+    "valid_integrations": 6782
+  },
+  {
+    "window": 2,
+    "rank": 2,
+    "raw_peak": 43244283.20245166,
+    "mitigated_peak": 479102.7375247698,
+    "after_minus_before_db": -19.555000504739436,
+    "reduction_db": 19.555000504739432,
+    "valid_integrations": 6782
+  },
+  {
+    "window": 3,
+    "rank": 2,
+    "raw_peak": 30069571.33357165,
+    "mitigated_peak": 595801.8933157955,
+    "after_minus_before_db": -17.030253579551044,
+    "reduction_db": 17.030253579551044,
+    "valid_integrations": 6782
+  },
+  {
+    "window": 4,
+    "rank": 2,
+    "raw_peak": 17229803.09475911,
+    "mitigated_peak": 598187.0543408843,
+    "after_minus_before_db": -14.594433042648019,
+    "reduction_db": 14.594433042648019,
+    "valid_integrations": 6781
+  }
+]

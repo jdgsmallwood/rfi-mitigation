@@ -286,7 +286,7 @@ CLAUDE.md
 !paper/haslam_fixed7_window2_sun_protection_isolation_120s.csv
 !paper/channel_flux_stats_window2_120s.csv
 !paper/channel_vs_clean_correlation_window2_120s.csv
-!paper/channel_scan_correlation_flux_window2_120s.pdf
+!paper/channel_amplitudes_window2_120s.pdf
 
 # Revision reproduction sources and final numerical/figure products
 !paper/revision/*.tex

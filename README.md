@@ -127,12 +127,13 @@ data.
 | `haslam_fixed7_window2_rank_sweep_120s.csv` | correlation against the clean channel vs nulled rank, with the 50°-rotated-sky falsification control |
 | `haslam_fixed7_window2_sun_protection_isolation_120s.{pdf,csv}` | protection isolated: identical pipeline, protection the only difference |
 | `haslam_fixed2_dirty_protection_120s_sun_shrunk.pdf` | the four 120 s windows at rank 2, all five image products |
-| `channel_scan_correlation_flux_window2_120s.pdf` | per-channel correlation with the clean channel, and in-horizon flux |
-| `channel_{vs_clean_correlation,flux_stats}_window2_120s.csv` | the tables behind that figure |
+| `channel_amplitudes_window2_120s.pdf` | per-channel in-horizon dirty-image amplitudes for Window 2 |
+| `channel_flux_stats_window2_120s.csv` | the table behind the amplitude figure |
 
 ## Revision analyses
 
-The additional four-window sweeps, satellite-track brightness, separate-hand
+The additional four-window sweeps, including the channel-correlation comparison,
+satellite-track brightness, separate-hand
 checks and within-window rank changes are in [paper/revision](paper/revision/README.md).
 That directory includes portable scripts, numerical results and the four new
 scientific figures, plus the processing-chain diagram source. The main notebook

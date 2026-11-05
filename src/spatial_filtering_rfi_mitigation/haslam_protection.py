@@ -97,7 +97,7 @@ def psd_safe_subtract(covariances, model, safety=0.999):
 
 
 def fixed_rank_subspace_null_batch(covariances, protected_bases, rank, mode="null"):
-    """Null exactly ``rank`` leading whitened modes outside a protected basis.
+    """Null exactly ``rank`` leading diagonally normalised modes outside a protected basis.
 
     Use a QR decomposition to find the rotation matrix $U$ that will put covariances
     in units of the projected basis - then remove that from the equation.
@@ -138,8 +138,8 @@ def fixed_rank_subspace_null_batch(covariances, protected_bases, rank, mode="nul
     whitened = 0.5 * (whitened + np.swapaxes(whitened.conj(), -1, -2))
     if protected_dimension:
         whitened_basis = basis / scale[:, :, None]
-        # this does a Gram-Schmidt decomposition. Mode complete means that
-        # numpy will fill in the remaining (n-f) ranks.
+        # Complete QR supplies the protected span followed by its orthogonal
+        # complement. Only the covariance within that complement is decomposed.
         unitary, triangular = np.linalg.qr(whitened_basis, mode="complete")
         basis_diagonal = np.abs(
             np.diagonal(triangular[:, :protected_dimension, :], axis1=-2, axis2=-1)

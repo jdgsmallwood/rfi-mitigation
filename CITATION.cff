@@ -3,12 +3,12 @@ message: "If you use this software, please cite it as below."
 title: "spatial-filtering-rfi-mitigation: eigen-subspace RFI mitigation with directional protection for the LAMBDA array"
 abstract: >-
   Offline RFI-mitigation and imaging code for the LAMBDA 36-element radio
-  interferometer, together with the notebook that regenerates every figure in
-  the paper. Short-term visibility covariances are peeled of a scaled Haslam sky
-  prior, whitened, projected free of a fixed-rank interference subspace while
+  interferometer, together with the notebook and revision scripts that regenerate the
+  paper figures. Short-term visibility covariances are peeled of a scaled Haslam sky
+  prior, diagonally normalised, projected free of a fixed-rank interference subspace while
   protecting chosen directions (the Sun), and imaged by direct DFT.
 type: software
-version: 1.0.0
+version: 1.1.0
 date-released: 2026-09-04
 license: MIT
 doi: "10.5281/zenodo.22294890"

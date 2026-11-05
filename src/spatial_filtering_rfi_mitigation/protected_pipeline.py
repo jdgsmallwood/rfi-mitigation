@@ -108,7 +108,7 @@ class Observation:
         return h5_selection, local.size
 
     def load_channel(self, selection, channel):
-        """Load one calibrated pseudo-Stokes-I covariance cube."""
+        """Load calibrated XX, YY, or their average, as configured."""
         h5_selection, ntime = self._selection_to_hdf5(selection)
         selected_ids = self.antenna_ids[self.good_antennas]
         selected_set = set(selected_ids.tolist())
@@ -127,7 +127,8 @@ class Observation:
         pseudo_i = None
         with h5.File(self.config.visibility_file, "r") as handle:
             dataset = handle["visibilities"]
-            for pol_index, pol in enumerate(self.config.polarisations):
+            for pol in self.config.polarisations:
+                pol_index = {"XX": 0, "YY": 1}[pol]
                 raw = dataset[h5_selection, int(channel), :, pol_index, pol_index, :]
                 visibility = raw[..., 0] + 1j * raw[..., 1]
                 visibility = visibility[:, self.baseline_valid][:, baseline_keep]
@@ -152,7 +153,12 @@ class Observation:
 
 def prepare_observation(config, verbose=True):
     """Read metadata, gains and fixed geometry without loading visibility cubes."""
-    gains = utils.read_hdf5_gains(config.gain_file, list(config.polarisations))
+    if not config.polarisations or any(p not in ("XX", "YY") for p in config.polarisations):
+        raise ValueError("polarisations must contain XX and/or YY")
+    if len(set(config.polarisations)) != len(config.polarisations):
+        raise ValueError("polarisations must not contain duplicates")
+    # Both are retained for the gain diagnostics, even for single-hand loading.
+    gains = utils.read_hdf5_gains(config.gain_file, ["XX", "YY"])
     index_range = (config.start_index, config.stop_index)
     times, frequencies = utils.read_hdf5_time_freq(
         config.visibility_file, verbose=verbose, index_range=index_range
